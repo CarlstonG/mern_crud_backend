@@ -6,7 +6,7 @@ const UserModel = require('./models/User')
 
 const app = express()
 app.use(cors({
-    origin: 'https://mern-frontend-crud.onrender.com',
+    origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
 }))
