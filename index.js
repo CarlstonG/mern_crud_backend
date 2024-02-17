@@ -6,14 +6,17 @@ const UserModel = require('./models/User')
 
 const app = express()
 app.use(cors({
-    origin: '*',
+    origin: 'http://localhost:3000',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
 }))
 app.use(express.json())
 
 // connecting MongoDB
-mongoose.connect(process.env.MONGODB_URI)
+mongoose.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
 
 // display all users
 app.get("/", (req, res) => {
