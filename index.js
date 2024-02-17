@@ -5,7 +5,11 @@ require('dotenv').config();
 const UserModel = require('./models/User')
 
 const app = express()
-app.use(cors())
+app.use(cors({
+    origin: 'https://mern-crud-frontend-delta.vercel.app/',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+}))
 app.use(express.json())
 
 // connecting MongoDB
