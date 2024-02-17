@@ -5,18 +5,6 @@ require('dotenv').config();
 const UserModel = require('./models/User')
 
 const app = express()
-app.use((req, res, next) => {
-    const allowedOrigins = ['http://localhost:3000'];
-    const origin = req.headers.origin;
-
-    if (allowedOrigins.includes(origin)) {
-        res.header('Access-Control-Allow-Origin', origin);
-    }
-
-    res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
-    res.header('Access-Control-Allow-Credentials', true);
-    next();
-});
 app.use(cors({
     origin: 'http://localhost:3000',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
@@ -31,12 +19,11 @@ mongoose.connect(process.env.MONGODB_URI, {
   });
 
 // display all users
-app.get("/", (req, res) => {
+app.get("/", cors(), (req, res) => {
     UserModel.find({})
-    .then(users => res.json(users))
-    .catch(err => res.json(err))
-    
-})
+        .then(users => res.json(users))
+        .catch(err => res.json(err));
+});
 // get id display user
 app.get('/getUser/:id', (req, res) => {
     const id = req.params.id
